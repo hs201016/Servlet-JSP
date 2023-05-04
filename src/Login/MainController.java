@@ -41,12 +41,12 @@ public class MainController {
         if (forward != null) { // 경로가 비어져 있지 않도록
             if (forward.isRedirect()) {
                 try {
-                    response.sendRedirect(forward.getPath());
+                    response.sendRedirect(forward.getPath()); // 사용자 url 에 뜨는 것
                 } catch (IOException e) { // 입출력 예외에 관한 예외처리
                     throw new RuntimeException(e);
                 }
             } else {
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward.getPath());
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher(forward.getPath()); // 서버내 사용자가 몰라도 됨
                 try {
                     requestDispatcher.forward(request, response);
                 } catch (ServletException e) {

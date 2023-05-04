@@ -1,12 +1,16 @@
 package Database;
 
 public class MemberDTO {
-// DTO는 Data Transfer Object의 약어로, 데이터 전송 객체를 의미합니다.
+    // DTO는 Data Transfer Object의 약어로, 데이터 전송 객체를 의미합니다.
     String id;
     String password;
     String name;
     String email;
     String StudentId;
+
+    
+
+
     public String getId() {
         return id;
     }
@@ -53,9 +57,7 @@ public class MemberDTO {
         this.password = password;
         this.name = name;
         this.email = email;
-        StudentId = studentId;
-
-
+        this.StudentId = studentId;
     }
 
 
