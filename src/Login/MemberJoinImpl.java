@@ -24,14 +24,13 @@ public class MemberJoinImpl implements Action {
 
         MemberDAO manager = MemberDAO.getInstance();
 
+        int result = manager.IdCheck(id);
+
         if (result != 0) { // 동일한 아이디가 있나 체크하기 저쪽에서 result로 넘겨줄거임
             out.close();
         } else { // 동일한 아이디가 없으면 dto객체에 값을 저장하여 dao로 전달해주기
 
             MemberDTO member = new MemberDTO(); // 여기 해결해야함
-
-
-
             member.setId(id); // 여기는 왜 parameter 안 쓰는지 체크하기
             member.setPassword(request.getParameter("password")); // form 형식으로 작성한것을 가져오려고
             member.setName(request.getParameter("name"));

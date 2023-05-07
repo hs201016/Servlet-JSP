@@ -52,13 +52,8 @@ public class MemberDTO {
         StudentId = studentId;
     }
 
-    public MemberDTO(String id, String password, String name, String email, String studentId) {
-        this.id = id;
-        this.password = password;
-        this.name = name;
-        this.email = email;
-        this.StudentId = studentId;
-    }
+
+
 
 
 }
