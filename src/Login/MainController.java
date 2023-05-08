@@ -1,14 +1,19 @@
 package Login;
 
+import Database.DBConn;
+import Database.MemberDAO;
+import Database.MemberDTO;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("*.do") // 모든 .do에 대한 서블릿
-public class MainController {
+// @WebServlet("*.do") // 모든 .do에 대한 서블릿
+public class MainController extends HttpServlet {
     private static final long serialVersionUID = 1L; // 객체의 직렬화
 
     private void doProcess(HttpServletRequest request, HttpServletResponse response) {
@@ -24,13 +29,15 @@ public class MainController {
         if (command.equals("/MemberJoinForm.do")) { // do~~ 라는건 알겠는데 좀 더 자세히
             forward = new ActionForward(); // 초기화
             forward.setRedirect(true); //완료한 후 새로운페이지로 이동시키기 위해 False 시 페이지 내에서 수행한다??
-            forward.setPath("./Member/MemberJoinForm.jsp");
+            forward.setPath("./Member/MemberJoinForm.jsp"); // 서버 -> 클라이언트로 요청을 전달할떄
+            // 해당경로에 있는 jsp 페이지를 받아 브라우저에 출력
+
         }
 
         // 이건 회원가입 Impl
-        else if (command.equals("/MemberJoinImpl.do")) {
+        else if (command.equals("/MemberJoin.do")) {
             try {  // 서블릿의 exception 때문에 try 사용
-                action = new MemberJoinImpl(); // 실질적인 요청!!
+                action = new MemberJoin(); // 실질적인 요청!!
                 forward = action.execute(request, response); // Forward는 경로!!
             } catch (Exception e) {
                 e.printStackTrace();
@@ -40,6 +47,7 @@ public class MainController {
         // 페이지 이동
         if (forward != null) { // 경로가 비어져 있지 않도록
             if (forward.isRedirect()) {
+
                 try {
                     response.sendRedirect(forward.getPath()); // 사용자 url 에 뜨는 것
                 } catch (IOException e) { // 입출력 예외에 관한 예외처리
@@ -60,11 +68,17 @@ public class MainController {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("Get");
-        doProcess(request, response); // doProcess 메소드에 태워서 처리하는 것이 좋음
+        request.getRequestDispatcher("/Member/MemberJoinForm.jsp").forward(request, response); // form 보여주기 위해서 사용
+        doProcess(request, response);
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Post");
-        doProcess(request, response);
+            System.out.println("Post");
+            doProcess(request, response);
+
+
+        }
     }
-}
+
+

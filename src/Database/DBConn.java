@@ -8,7 +8,7 @@ public class DBConn { // try catch 로 수정하기
     public static Connection makeConnection() {
 
         Connection con = null;
-        String url = "jdbc:mysql://localhost:3306/user";
+        String url = "jdbc:mysql://localhost:3306/ServletDB";
         String userName = "root";
         String password = "369369a@";
 
